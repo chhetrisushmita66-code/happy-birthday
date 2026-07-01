@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Mumma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-top: #3b2a3e;
+    --sky-mid: #7a4a5c;
+    --sky-warm: #d88a5a;
+    --sky-glow: #f3b563;
+    --cream: #fdf3e7;
+    --ink: #3a2620;
+    --ink-soft: #6b4f45;
+    --ember: #e0713f;
+    --rose: #c96b7a;
+    --gold: #e8a94a;
+    --card: #fffaf3;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html, body{ height:100%; }
+
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Literata', serif;
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  .deck{
+    position: relative;
+    width: 100vw;
+    height: 100dvh;
+  }
+
+  .slide{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 5rem 1.6rem 6rem;
+    opacity:0;
+    pointer-events:none;
+    transform: translateY(14px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .slide.active{
+    opacity:1;
+    pointer-events:auto;
+    transform: translateY(0);
+  }
+
+  /* ---------- HERO SLIDE ---------- */
+  #slide-0{
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-warm) 78%, var(--sky-glow) 100%);
+    overflow:hidden;
+    padding-bottom: 6rem;
+  }
+
+  .sun{
+    position:absolute;
+    left:50%;
+    bottom:-140px;
+    width:340px;
+    height:340px;
+    transform:translateX(-50%);
+    border-radius:50%;
+    background: radial-gradient(circle at 50% 40%, #fff3d6 0%, var(--sky-glow) 45%, var(--ember) 100%);
+    box-shadow: 0 0 120px 60px rgba(243,181,99,0.35);
+    opacity:0;
+  }
+  #slide-0.active .sun{
+    animation: rise 3.2s ease-out forwards, pulse-glow 5s ease-in-out 3.2s infinite;
+  }
+  @keyframes rise{
+    0%{ opacity:0; bottom:-220px; }
+    100%{ opacity:1; bottom:-140px; }
+  }
+  @keyframes pulse-glow{
+    0%,100%{ box-shadow: 0 0 120px 60px rgba(243,181,99,0.35); }
+    50%{ box-shadow: 0 0 150px 80px rgba(243,181,99,0.5); }
+  }
+
+  .stars{ position:absolute; inset:0; pointer-events:none; }
+  .star{
+    position:absolute;
+    width:3px; height:3px;
+    background: #fff8ea;
+    border-radius:50%;
+    opacity:0.6;
+    animation: twinkle 4s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:0.15; }
+    50%{ opacity:0.8; }
+  }
+
+  .eyebrow{
+    position:relative; z-index:2;
+    font-family:'Work Sans', sans-serif;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    color: #ffe9cf;
+    margin-bottom: 1.4rem;
+  }
+
+  #slide-0 h1{
+    position:relative; z-index:2;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: clamp(2.4rem, 8vw, 4.8rem);
+    color: #fffaf3;
+    line-height: 1.05;
+    text-shadow: 0 2px 40px rgba(0,0,0,0.15);
+  }
+
+  #slide-0 .sub{
+    position:relative; z-index:2;
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1rem, 2.4vw, 1.3rem);
+    color: #ffe7cc;
+    margin-top: 1.2rem;
+    max-width: 32ch;
+  }
+
+  /* ---------- VERSE SLIDES ---------- */
+  .verse-label{
+    font-family:'Work Sans', sans-serif;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    color: var(--rose);
+    margin-bottom: 1.3rem;
+  }
+
+  .verse{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.25rem, 3.6vw, 1.8rem);
+    line-height: 1.65;
+    max-width: 560px;
+  }
+  .verse .line{ display:block; }
+  .verse .accent{ color: var(--ember); font-style:normal; font-weight:500; }
+
+  .icon-flourish{
+    margin-bottom: 1.6rem;
+  }
+  .icon-flourish svg{ width:20px; height:20px; }
+
+  /* ---------- NOTES SLIDES ---------- */
+  .notes-intro{
+    font-family:'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    margin-bottom: 2.2rem;
+    max-width: 520px;
+  }
+  .notes-intro span{ color: var(--ember); font-style:italic; font-weight:400; }
+
+  .notes{
+    display:flex;
+    flex-direction:column;
+    gap: 0.9rem;
+    width: 100%;
+    max-width: 540px;
+  }
+  .note{
+    background: var(--card);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px 14px 14px 4px;
+    padding: 1.1rem 1.4rem;
+    font-size: 1rem;
+    line-height:1.55;
+    color: var(--ink-soft);
+    text-align:left;
+    box-shadow: 0 6px 24px rgba(58,38,32,0.06);
+  }
+  .note:nth-child(even){ margin-left: clamp(0px, 5vw, 30px); border-left-color: var(--rose); }
+
+  /* ---------- CANDLE SLIDE ---------- */
+  .candle-title{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size: clamp(1.3rem, 3.4vw, 1.8rem);
+    margin-bottom: 0.5rem;
+  }
+  .candle-hint{
+    font-family:'Work Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin-bottom: 2.2rem;
+  }
+  .candle-wrap{
+    position:relative;
+    width: 70px;
+    margin: 0 auto 1.2rem;
+    cursor: pointer;
+    user-select:none;
+  }
+  .flame{
+    position:relative;
+    width: 16px; height: 26px;
+    margin: 0 auto;
+    background: radial-gradient(circle at 50% 70%, #fff3c4 0%, var(--gold) 45%, var(--ember) 100%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    transform-origin: 50% 100%;
+    animation: flicker 1.6s ease-in-out infinite;
+    box-shadow: 0 0 24px 8px rgba(232,169,74,0.55);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  @keyframes flicker{
+    0%,100%{ transform: rotate(-2deg) scaleY(1); }
+    30%{ transform: rotate(2deg) scaleY(1.05); }
+    60%{ transform: rotate(-1deg) scaleY(0.96); }
+  }
+  .flame.out{ opacity:0; transform: scaleY(0.2) translateY(10px); }
+  .wick{ width:3px; height:10px; background:#5a4038; margin:-3px auto 0; }
+  .candle-body{
+    width: 26px; height: 74px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, #f4dcc0 0%, #fff6e8 30%, #f4dcc0 60%, #e8c7a0 100%);
+    border-radius: 5px;
+    position:relative;
+    box-shadow: inset -3px 0 6px rgba(0,0,0,0.06);
+  }
+  .candle-body::before, .candle-body::after{
+    content:''; position:absolute; left:0; right:0; height:5px;
+    background: var(--rose); opacity:0.55;
+  }
+  .candle-body::before{ top: 20px; }
+  .candle-body::after{ top: 44px; }
+  .wish-text{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    color: var(--ember);
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    min-height: 1.5rem;
+    opacity:0;
+    transform: translateY(8px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .wish-text.show{ opacity:1; transform: translateY(0); }
+  .spark{ position:fixed; width:5px; height:5px; border-radius:50%; pointer-events:none; z-index: 80; }
+
+  /* ---------- SIGNOFF SLIDE ---------- */
+  .signoff-wish{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size: clamp(1.5rem, 4.4vw, 2.2rem);
+    max-width: 560px;
+    line-height:1.35;
+    margin-bottom: 1.8rem;
+  }
+  .signoff-wish .accent{ color: var(--ember); font-style:italic; font-weight:400; }
+  .from{
+    font-family:'Work Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  .name{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size: 1.1rem;
+    color: var(--rose);
+    margin-top: 0.3rem;
+  }
+  .replay{
+    margin-top: 2.4rem;
+    font-family:'Work Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    background:none;
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    padding: 0.6rem 1.3rem;
+    cursor:pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .replay:hover{ background: var(--gold); color: #fff; }
+
+  /* ---------- NAV CONTROLS ---------- */
+  .nav-dots{
+    position: fixed;
+    left: 50%;
+    bottom: 1.6rem;
+    transform: translateX(-50%);
+    display:flex;
+    gap: 0.5rem;
+    z-index: 100;
+  }
+  .dot{
+    width: 7px; height:7px;
+    border-radius:50%;
+    background: rgba(107,79,69,0.28);
+    cursor:pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  #slide-0 ~ .nav-dots .dot,
+  body.on-hero .dot{ background: rgba(255,250,243,0.4); }
+  .dot.active{ background: var(--ember); transform: scale(1.3); }
+  body.on-hero .dot.active{ background: var(--gold); }
+
+  .nav-arrow{
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px; height:42px;
+    border-radius:50%;
+    border:none;
+    background: rgba(255,250,243,0.75);
+    color: var(--ink);
+    font-size: 1.1rem;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    z-index: 100;
+    box-shadow: 0 4px 16px rgba(58,38,32,0.12);
+    transition: opacity 0.3s ease, background 0.3s ease;
+  }
+  .nav-arrow:hover{ background: #fff; }
+  .nav-arrow.prev{ left: 1.2rem; }
+  .nav-arrow.next{ right: 1.2rem; }
+  .nav-arrow[disabled]{ opacity:0; pointer-events:none; }
+
+  body.on-hero .nav-arrow{
+    background: rgba(255,250,243,0.18);
+    color: #fffaf3;
+  }
+  body.on-hero .nav-arrow:hover{ background: rgba(255,250,243,0.32); }
+
+  .slide-counter{
+    position: fixed;
+    top: 1.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family:'Work Sans', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    z-index: 100;
+  }
+  body.on-hero .slide-counter{ color: rgba(255,250,243,0.75); }
+
+  @media (max-width: 560px){
+    .nav-arrow{ width:36px; height:36px; font-size:1rem; }
+    .nav-arrow.prev{ left: 0.6rem; }
+    .nav-arrow.next{ right: 0.6rem; }
+  }
+</style>
+</head>
+<body class="on-hero">
+
+<p class="slide-counter" id="counter">01 / 07</p>
+
+<div class="deck" id="deck">
+
+  <section class="slide active" id="slide-0">
+    <div class="stars" id="stars"></div>
+    <div class="sun"></div>
+    <p class="eyebrow">for the most extra, most wonderful woman I know</p>
+    <h1>Happy Birthday,<br>Mumma</h1>
+    <p class="sub">Some people turn on the heater.<br>You just walk into the room and everyone calms down.</p>
+  </section>
+
+  <section class="slide" id="slide-1">
+    <p class="verse-label">a small (slightly dramatic) verse</p>
+    <p class="verse">
+      <span class="line">Before I knew the word for <span class="accent">safe</span>,</span>
+      <span class="line">I knew your footsteps in the hallway —</span>
+      <span class="line">usually followed by "why is your room like this."</span>
+      <span class="line">You've been bossing me around and loving me</span>
+      <span class="line">in the same breath since day one,</span>
+      <span class="line">and I <span class="accent">love you</span> for every bit of it.</span>
+    </p>
+  </section>
+
+  <section class="slide" id="slide-2">
+    <p class="notes-intro">Things you gave me <span>without ever making a list of them</span></p>
+    <div class="notes">
+      <p class="note">The good blanket, every time, even when you said you didn't need it.</p>
+      <p class="note">A kitchen that always smelled like it was expecting someone hungry.</p>
+      <p class="note">Patience for every version of me — the dramatic ones especially.</p>
+      <p class="note">And also — happy birthday, and can we pause the marriage talk. Just today. 😄</p>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-3">
+    <p class="notes-intro">Sentences you've said <span>no fewer than 500 times</span></p>
+    <div class="notes">
+      <p class="note">"Eat something, you'll feel better" — for every problem, ever.</p>
+      <p class="note">"Call me when you reach" — even if "reaching" is the next room.</p>
+      <p class="note">And I never get tired of hearing a single one.</p>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-4">
+    <p class="verse-label">and, more seriously, for a second</p>
+    <p class="verse">
+      <span class="line">I don't say this enough,</span>
+      <span class="line">so let a webpage do it for me —</span>
+      <span class="line">thank you for every kind of tired</span>
+      <span class="line">you pushed through so I wouldn't have to.</span>
+    </p>
+  </section>
+
+  <section class="slide" id="slide-5">
+    <p class="candle-title">Make a wish for her</p>
+    <p class="candle-hint">(tap the flame — no, I won't tell you what to wish for, that's on you)</p>
+    <div class="candle-wrap" id="candleWrap">
+      <div class="flame" id="flame"></div>
+      <div class="wick"></div>
+      <div class="candle-body"></div>
+    </div>
+    <p class="wish-text" id="wishText">Wish made. Here's to you, Mumma. 🤍</p>
+  </section>
+
+  <section class="slide" id="slide-6">
+    <p class="signoff-wish">However this year unfolds — new wrinkles, new lectures, new reasons to worry about me —<br>I hope you already know:<br>you mean <span class="accent">everything</span> to me, Mumma.</p>
+    <p class="from">WITH ALL MY LOVE (AND ZERO WEDDING PLANS TODAY)</p>
+    <p class="name">Sushmita</p>
+    <button class="replay" id="replayBtn">Read it again</button>
+  </section>
+
+</div>
+
+<button class="nav-arrow prev" id="prevBtn" aria-label="Previous">&#8592;</button>
+<button class="nav-arrow next" id="nextBtn" aria-label="Next">&#8594;</button>
+<div class="nav-dots" id="dots"></div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+
+  const dotsWrap = document.getElementById('dots');
+  slides.forEach((_, i)=>{
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===0 ? ' active' : '');
+    d.addEventListener('click', ()=> goTo(i));
+    dotsWrap.appendChild(d);
+  });
+  const dotEls = Array.from(dotsWrap.children);
+
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const counter = document.getElementById('counter');
+
+  function pad(n){ return n < 10 ? '0'+n : n; }
+
+  function goTo(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('active');
+    dotEls.forEach((d, idx)=> d.classList.toggle('active', idx===current));
+    counter.textContent = pad(current+1) + ' / ' + pad(total);
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    document.body.classList.toggle('on-hero', current === 0);
+  }
+
+  prevBtn.addEventListener('click', ()=> goTo(current-1));
+  nextBtn.addEventListener('click', ()=> goTo(current+1));
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight') goTo(current+1);
+    if(e.key === 'ArrowLeft') goTo(current-1);
+  });
+
+  // swipe support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e)=>{ touchStartX = e.changedTouches[0].screenX; }, {passive:true});
+  document.addEventListener('touchend', (e)=>{
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if(Math.abs(dx) > 50){
+      if(dx < 0) goTo(current+1); else goTo(current-1);
+    }
+  }, {passive:true});
+
+  document.getElementById('replayBtn').addEventListener('click', ()=> goTo(0));
+
+  // init state
+  prevBtn.disabled = true;
+
+  // scattered stars
+  const starsWrap = document.getElementById('stars');
+  for(let i=0;i<40;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*70+'%';
+    s.style.animationDelay = (Math.random()*4)+'s';
+    starsWrap.appendChild(s);
+  }
+
+  // candle interaction
+  const flame = document.getElementById('flame');
+  const candleWrap = document.getElementById('candleWrap');
+  const wishText = document.getElementById('wishText');
+  let blown = false;
+
+  candleWrap.addEventListener('click', ()=>{
+    if(blown) return;
+    blown = true;
+    flame.classList.add('out');
+    wishText.classList.add('show');
+
+    const rect = candleWrap.getBoundingClientRect();
+    const cx = rect.left + rect.width/2;
+    const cy = rect.top + 20;
+    const colors = ['#e8a94a','#e0713f','#c96b7a','#fff3c4'];
+
+    for(let i=0;i<22;i++){
+      const sp = document.createElement('div');
+      sp.className = 'spark';
+      sp.style.background = colors[Math.floor(Math.random()*colors.length)];
+      sp.style.left = cx+'px';
+      sp.style.top = cy+'px';
+      document.body.appendChild(sp);
+
+      const angle = Math.random()*Math.PI*2;
+      const dist = 60 + Math.random()*90;
+      const dx = Math.cos(angle)*dist;
+      const dy = Math.sin(angle)*dist - 40;
+
+      sp.animate([
+        { transform:'translate(0,0)', opacity:1 },
+        { transform:`translate(${dx}px, ${dy}px)`, opacity:0 }
+      ], { duration: 900+Math.random()*500, easing:'ease-out' });
+
+      setTimeout(()=>sp.remove(), 1500);
+    }
+  });
+</script>
+
+</body>
+</html>
